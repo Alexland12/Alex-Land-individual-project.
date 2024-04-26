@@ -1,1 +1,50 @@
-please see other code in repository.
+import cv2
+import pandas as pd
+from pynput import keyboard
+from pynput.keyboard import Key, Listener
+import os
+
+key_pressed = False
+def on_press(key):
+    global key_pressed
+    if key == keyboard.Key.space:
+        key_pressed = True
+
+def on_release(key):
+    global key_pressed
+    if key == keyboard.Key.space:
+        key_pressed = False
+
+video_path = r"C:\Users\alipa\Downloads\CLIP 1.mp4"  
+cap = cv2.VideoCapture(video_path)
+
+frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+data = {"Frame": [], "Space Pressed": []}
+
+listener = Listener(on_press=on_press, on_release=on_release)
+listener.start()
+
+for i in range(frame_count):
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    data["Frame"].append(i)
+    data["Space Pressed"].append(1 if key_pressed else 0)
+
+    cv2.imshow('Frame', frame)
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        break
+listener.stop()
+cap.release()
+cv2.destroyAllWindows()
+
+df = pd.DataFrame(data)
+
+desktop_path = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+excel_file_path = os.path.join(desktop_path, 'space_press_data.xlsx')
+df.to_excel(excel_file_path, index=False)
+
+print("Data saved to:", excel_file_path)
