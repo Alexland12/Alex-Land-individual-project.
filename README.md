@@ -1,16 +1,18 @@
 # Alex-Land-individual-project.
-StudentID: 10910274
+This GitHub file contains the finished code of my third year individual project.
+This code allows the training and application of a neural net, capable of calculating how long to ball is 'in-play' in a football match.
 
+USER GUIDE (for training) :
+1) open the 'FINAL PROJECT CODE' and when prompted, select open in Colab.
+2) connect, then run cell 1, which imports librarys.
+3) run cell 2, which connects google drive, and sets colour ranges.
+(blue colour detection is configured right now, you will need to edit the code to accomodate other colours)
+4) run the next cell, click upload when prompted and select your video file for training.
+5) when complete, run the following cell. An excel file will be produced on the left side of the screen.
+6) open 'FINAL_CODE', change the upload link to path of your video being used to train.
+7) run the code, it will open the football clip you are using to train the video. Whilst open, hold spacebar whenever the ball is in play.
+8) An Excel file will be generated, copy the column titled 'space_pressed' then paste it into the excel file generated from step 5.
+9) run the next cell on 'FINAL PROJECT CODE' this will train the network, then evaluate it.
 
-This repository contains the full, complete code for my third year individual project.
-The code was imported from google colab and can be found in the file 'FINAL_CODE'
-Full explanation of the code can be found within the project report - however, a short user guide is below.
-
-The main code, FINAL_CODE, should be opened via colab as prompted when the file is opened.
-The code should be ran systematically, working though in order. There are prompts where neccessary how it works.
-The second code, FINAL PROJECT CODE, is used for generating the space pressed variable.
-When prompted, the space pressed variable should be copy and pasted into the processed data set - if re training the network is neccessary.
-
-If you just want to test the program, this can be skipped and the processed data file can just be ran in the final section of FINAL_CODE.
-In doing so, the trained network will make predictions on how much added time should be added to the football game.
-(colours of team kits are required to be manually input into the second block of code)
+to see how much in-play time there is on a new clip, repeat step 4. use the file it generates as the 'input_file_path' in the section lablled eith 'Submit the unseen data file into 'input_file_path' variable to generate the predictions.'
+run the final cell and it will read how much added time is requried.
